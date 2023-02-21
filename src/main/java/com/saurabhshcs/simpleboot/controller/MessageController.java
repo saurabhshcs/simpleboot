@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @RestController
@@ -24,14 +25,13 @@ public class MessageController
         return ResponseEntity.ok(StringResponse.builder().echo("Hello World!").build());
     }
 
-//    @PostMapping(value = "/customHello", produces = "application/json")
-//    public ResponseEntity customMessage(@RequestBody String message){
-//        log.info("Hello {}", message);
-//        if (Strings.isNotBlank(message)){
-//            return ResponseEntity.ok("Hello " + message);
-//        }
-//        log.info("Message information is not present in the request {}", message);
-//        return (ResponseEntity) ResponseEntity.notFound();
-//
-//    }
+    @PostMapping(value = "/customHello", produces = "application/json")
+    public ResponseEntity customMessage(HttpServletRequest String message){
+        log.info("Message information is not present in the request {}", message);
+        if (Strings.isBlank(message)){
+            return ResponseEntity.badRequest().build();
+        }
+        log.info("Hello {}", message);
+        return ResponseEntity.ok (StringResponse.builder().echo("Hello " + message).build());
+    }
 }
